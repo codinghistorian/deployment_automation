@@ -7,8 +7,16 @@ BRANCH = FXD-127-New-deployment-process
 PRIVATE_KEY_SRC = configs/stablecoin/privateKey
 PRIVATE_KEY_DEST = $(CLONE_DIR)/privateKey  # Adjust this path as needed
 
-# For the stablecoin project, choose the deployment scenario in coralX-scenarios.js
-SCENARIO = deployLocal
+# For the stablecoin project initial deployment, choose the deployment scenario in coralX-scenarios.js
+INIT_DEPLOY_SCENARIO = deployLocal
+
+#############################ADD-Collateral-DOWN############################################
+# For the stablecoin project add collateral, choose the deployment scenario in coralX-scenarios.js
+ADD_COL_SCENARIO = addCollateralLocal
+
+# Specify collateral name
+COL_NAME = CGO
+#############################ADD-Collateral-UP############################################
 
 # Target to clone the repository
 clone-stablecoin:
@@ -49,7 +57,7 @@ stablecoin-copy-external-addresses: stablecoin-compile
 
 # Target to deploy the stablecoin contracts
 stablecoin-deploy: stablecoin-copy-external-addresses
-	cd ${CLONE_DIR} && coralX scenario --run ${SCENARIO}
+	cd ${CLONE_DIR} && coralX scenario --run ${INIT_DEPLOY_SCENARIO}
 	echo "FXD smart contracts deployed."
 
 # Target to copy addresses.json, 
@@ -73,6 +81,31 @@ stablecoin-initial-deploy: stablecoin-deploy
 	cp -r $(CLONE_DIR)/privateKey stablecoinDeployResults/privateKey
 	echo "Finished copying deployment results."
 
+# Target to add collateral
+stablecoin-add-collateral:
+	echo "Copying add-collateral.json..."
+	cp configs/stablecoin/add-collateral.json $(CLONE_DIR)/add-collateral.json
+	echo "Finished copying add-collateral.json."
+
+	echo "Copying newCollateralSetup.json..."
+	cp configs/stablecoin/newCollateralSetup.json $(CLONE_DIR)/newCollateralSetup.json
+	echo "Finished copying newCollateralSetup.json."
+
+	echo "Copying coralX-config.js..."
+	cp configs/stablecoin/coralX-config.js $(CLONE_DIR)/coralX-config.js
+	echo "Finished copying coralX-config.js."
+
+	echo "Copying coralX-scenarios.js..."
+	cp configs/stablecoin/coralX-scenarios.js $(CLONE_DIR)/coralX-scenarios.js
+	echo "Finished copying coralX-scenarios.js."
+
+	cd ${CLONE_DIR} && coralX scenario --run ${ADD_COL_SCENARIO}
+	echo "Collateral added."
+
+	cp -r $(CLONE_DIR)/addresses_${COL_NAME}.json stablecoinDeployResults/addresses_${COL_NAME}.json
+
+	echo "addresses_${COL_NAME}.json copied to stablecoinDeployResults."
+
 # Default target
-all: fxd-stablecoin
+all: stablecoin-initial-deploy
 	echo "All tasks completed."
