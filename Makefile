@@ -108,16 +108,19 @@ stablecoin-add-collateral: stablecoin-compile
 	cp -r $(CLONE_DIR)/addresses_${COL_NAME}.json stablecoinDeployResults/addresses_${COL_NAME}.json
 
 	echo "addresses_${COL_NAME}.json copied to stablecoinDeployResults."
-
 # Target to switch price feed
-stablecoin-add-collateral: stablecoin-compile
+stablecoin-switch-price-feed: stablecoin-compile
 	echo "Copying setFathomPriceOracle.json..."
 	cp configs/stablecoin/setFathomPriceOracle.json $(CLONE_DIR)/setFathomPriceOracle.json
 	echo "Finished copying setFathomPriceOracle.json."
 
-	cd ${CLONE_DIR} && coralX scenario --run ${SWITCH_PRICE_FEED_SCENARIO}
-	echo "Price feed switched."
+	echo "Copying coralX-scenarios.js..."
+	cp configs/stablecoin/coralX-scenarios.js $(CLONE_DIR)/coralX-scenarios.js
+	echo "Finished copying coralX-scenarios.js."
 
+	cd ${CLONE_DIR} && coralX scenario --run ${SWITCH_PRICE_FEED_SCENARIO}
+	echo "Price feed switched."\
+	
 # Default target
 all: stablecoin-initial-deploy
 	echo "All tasks completed."
