@@ -75,13 +75,13 @@ stablecoin-initial-deploy: stablecoin-deploy
 	# Create the stablecoinDeployResults directory
 	mkdir -p stablecoinDeployResults
 	# Copy the necessary files and directories to stablecoinDeployResults
-	cp -r $(CLONE_DIR)/addresses.json stablecoinDeployResults/addresses.json
-	cp -r $(CLONE_DIR)/build stablecoinDeployResults/build
-	cp -r $(CLONE_DIR)/externalAddresses.json stablecoinDeployResults/externalAddresses.json
-	cp -r $(CLONE_DIR)/coralX-config.js stablecoinDeployResults/coralX-config.js
-	cp -r $(CLONE_DIR)/initialCollateralSetUp.json stablecoinDeployResults/initialCollateralSetUp.json
-	cp -r $(CLONE_DIR)/coralX-scenarios.js stablecoinDeployResults/coralX-scenarios.js
-	cp -r $(CLONE_DIR)/privateKey stablecoinDeployResults/privateKey
+	cp -r $(CLONE_DIR)/addresses.json stablecoinDeployResults/deployment/addresses.json
+	cp -r $(CLONE_DIR)/build stablecoinDeployResults/deployment/build
+	cp -r $(CLONE_DIR)/externalAddresses.json stablecoinDeployResults/deployment/externalAddresses.json
+	cp -r $(CLONE_DIR)/coralX-config.js stablecoinDeployResults/deployment/coralX-config.js
+	cp -r $(CLONE_DIR)/initialCollateralSetUp.json stablecoinDeployResults/deployment/initialCollateralSetUp.json
+	cp -r $(CLONE_DIR)/coralX-scenarios.js stablecoinDeployResults/deployment/coralX-scenarios.js
+	cp -r $(CLONE_DIR)/privateKey stablecoinDeployResults/deployment/privateKey
 	echo "Finished copying deployment results."
 
 # Target to add collateral
@@ -105,9 +105,12 @@ stablecoin-add-collateral: stablecoin-compile
 	cd ${CLONE_DIR} && coralX scenario --run ${ADD_COL_SCENARIO}
 	echo "Collateral added."
 
-	cp -r $(CLONE_DIR)/addresses_${COL_NAME}.json stablecoinDeployResults/addresses_${COL_NAME}.json
-
+	cp -r $(CLONE_DIR)/addresses_${COL_NAME}.json stablecoinDeployResults/add-collateral/addresses_${COL_NAME}.json
+	cp -r $(CLONE_DIR)/coralX-config.js stablecoinDeployResults/add-collateral/coralX-config.js
+	cp -r $(CLONE_DIR)/coralX-scenarios.js stablecoinDeployResults/add-collateral/coralX-scenarios.js
+	cp -r $(CLONE_DIR)/privateKey stablecoinDeployResults/add-collateral/privateKey
 	echo "addresses_${COL_NAME}.json copied to stablecoinDeployResults."
+
 # Target to switch price feed
 stablecoin-switch-price-feed: stablecoin-compile
 	echo "Copying setFathomPriceOracle.json..."
