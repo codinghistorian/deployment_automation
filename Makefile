@@ -18,6 +18,9 @@ ADD_COL_SCENARIO = addCollateralLocal
 COL_NAME = CGO
 #############################ADD-Collateral-UP############################################
 
+SWITCH_PRICE_FEED_SCENARIO = switchPriceFeedLocal
+
+
 # Target to clone the repository
 clone-stablecoin:
 	echo "Cloning stablecoin repository..."
@@ -105,6 +108,15 @@ stablecoin-add-collateral: stablecoin-compile
 	cp -r $(CLONE_DIR)/addresses_${COL_NAME}.json stablecoinDeployResults/addresses_${COL_NAME}.json
 
 	echo "addresses_${COL_NAME}.json copied to stablecoinDeployResults."
+
+# Target to switch price feed
+stablecoin-add-collateral: stablecoin-compile
+	echo "Copying setFathomPriceOracle.json..."
+	cp configs/stablecoin/setFathomPriceOracle.json $(CLONE_DIR)/setFathomPriceOracle.json
+	echo "Finished copying setFathomPriceOracle.json."
+
+	cd ${CLONE_DIR} && coralX scenario --run ${SWITCH_PRICE_FEED_SCENARIO}
+	echo "Price feed switched."
 
 # Default target
 all: stablecoin-initial-deploy

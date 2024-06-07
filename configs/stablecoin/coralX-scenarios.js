@@ -27,6 +27,9 @@ module.exports = {
     ['execute', '--path', 'scripts/migrations/add-collateral/deployment', '--network', 'mainnet'],
     ['execute', '--path', 'scripts/migrations/add-collateral/configuration', '--network', 'mainnet']
   ],
+  switchPriceFeedLocal: [
+    ['execute', '--path', 'scripts/migrations/priceFeed', '--network', 'development'],
+  ],
   deployTokensLocal: [
     ['execute', '--path', 'scripts/migrations/collateral-tokens', '--network', 'development']
   ],
