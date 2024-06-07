@@ -82,7 +82,7 @@ stablecoin-initial-deploy: stablecoin-deploy
 	echo "Finished copying deployment results."
 
 # Target to add collateral
-stablecoin-add-collateral:
+stablecoin-add-collateral: stablecoin-compile
 	echo "Copying add-collateral.json..."
 	cp configs/stablecoin/add-collateral.json $(CLONE_DIR)/add-collateral.json
 	echo "Finished copying add-collateral.json."
