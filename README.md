@@ -3,7 +3,6 @@
 0.This project uses Makefile to orchestrate deployment and scripts needed for configs and maintenance of the protocol.
 1.Makefile git clones, installs dependencies, compiles, copy config files from this project to cloned project, runs coralX scenarios
 2.Initial collateral addition automatically uses simplePriceFeed as priceFeed. Please switch price feed once price aggregator for a collateral is ready.
-3.
 
 ## Stablecoin
 
@@ -44,7 +43,7 @@ initialCollateralSetUp.json : initial collateral's CDP config is done in this fi
 setFathomPriceOracle.json : Token symbol and addresses used for price feed swtich from simplePriceFeed to CentralizedOraclePriceFeed is set in this file.
 
 #### whitelisting
-whitelisting.json : CollateralTokenAdapter and addresses to be whitelisted, FlashMintModule and addresses to be whitelisted
+whitelisting.json : CollateralTokenAdapter and addresses to be whitelisted, FlashMintModule and addresses to be whitelisted, LiquidationEngine and addresses to be whitelisted
 
 ## Makefile for stablecoin
 ### Variables
