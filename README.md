@@ -43,6 +43,9 @@ initialCollateralSetUp.json : initial collateral's CDP config is done in this fi
 #### switch-price-feed
 setFathomPriceOracle.json : Token symbol and addresses used for price feed swtich from simplePriceFeed to CentralizedOraclePriceFeed is set in this file.
 
+#### whitelisting
+whitelisting.json : CollateralTokenAdapter and addresses to be whitelisted, FlashMintModule and addresses to be whitelisted
+
 ## Makefile for stablecoin
 ### Variables
 
@@ -59,6 +62,9 @@ ADD_COL_SCENARIO : add-collateral scenario set in coralX-scenarios.js. Please ad
 #### New collateral name for add-addCollateral
 COL_NAME : Token symbol for add-collateral. Please make it sync with col name in configs/stablecoin/add-collateral/newCollateralSetup.json 's token symbol.
 
+#### whitelisting
+WHITELIST_SCENARIO : coralX scenario that will be used for whitelisting
+
 ### Stablecoin Makefile Targets
 There is each target(command) to get run for all stablecoin three scenarios. 
 When running target, please follow below format
@@ -72,6 +78,9 @@ make stablecoin-add-collateral
 
 #### Switch-price-feed
 make stablecoin-switch-price-feed
+
+#### Whitelisting
+make stablecoin-whitelist
 
 ## Results targets
 

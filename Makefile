@@ -20,6 +20,7 @@ COL_NAME = CGO
 
 SWITCH_PRICE_FEED_SCENARIO = switchPriceFeedLocal
 
+WHITELIST_SCENARIO = whitelistCollateralTokenAdapterLocal
 
 # Target to clone the repository
 clone-stablecoin:
@@ -75,13 +76,13 @@ stablecoin-initial-deploy: stablecoin-deploy
 	# Create the stablecoinDeployResults directory
 	mkdir -p stablecoinDeployResults
 	# Copy the necessary files and directories to stablecoinDeployResults
-	cp -r $(CLONE_DIR)/addresses.json stablecoinDeployResults/deployment/addresses.json
-	cp -r $(CLONE_DIR)/build stablecoinDeployResults/deployment/build
-	cp -r $(CLONE_DIR)/externalAddresses.json stablecoinDeployResults/deployment/externalAddresses.json
-	cp -r $(CLONE_DIR)/coralX-config.js stablecoinDeployResults/deployment/coralX-config.js
-	cp -r $(CLONE_DIR)/initialCollateralSetUp.json stablecoinDeployResults/deployment/initialCollateralSetUp.json
-	cp -r $(CLONE_DIR)/coralX-scenarios.js stablecoinDeployResults/deployment/coralX-scenarios.js
-	cp -r $(CLONE_DIR)/privateKey stablecoinDeployResults/deployment/privateKey
+	cp -r $(CLONE_DIR)/addresses.json stablecoinDeployResults/addresses.json
+	cp -r $(CLONE_DIR)/build stablecoinDeployResults/build
+	cp -r $(CLONE_DIR)/externalAddresses.json stablecoinDeployResults/externalAddresses.json
+	cp -r $(CLONE_DIR)/coralX-config.js stablecoinDeployResults/oralX-config.js
+	cp -r $(CLONE_DIR)/initialCollateralSetUp.json stablecoinDeployResults/initialCollateralSetUp.json
+	cp -r $(CLONE_DIR)/coralX-scenarios.js stablecoinDeployResults/coralX-scenarios-initial-deploy.js
+	cp -r $(CLONE_DIR)/privateKey stablecoinDeployResults/privateKey
 	echo "Finished copying deployment results."
 
 # Target to add collateral
@@ -105,10 +106,10 @@ stablecoin-add-collateral: stablecoin-compile
 	cd ${CLONE_DIR} && coralX scenario --run ${ADD_COL_SCENARIO}
 	echo "Collateral added."
 
-	cp -r $(CLONE_DIR)/addresses_${COL_NAME}.json stablecoinDeployResults/add-collateral/addresses_${COL_NAME}.json
-	cp -r $(CLONE_DIR)/coralX-config.js stablecoinDeployResults/add-collateral/coralX-config.js
-	cp -r $(CLONE_DIR)/coralX-scenarios.js stablecoinDeployResults/add-collateral/coralX-scenarios.js
-	cp -r $(CLONE_DIR)/privateKey stablecoinDeployResults/add-collateral/privateKey
+	cp -r $(CLONE_DIR)/addresses_${COL_NAME}.json stablecoinDeployResults/addresses_${COL_NAME}.json
+	cp -r $(CLONE_DIR)/coralX-config.js stablecoinDeployResults/coralX-config-add-collateral.js
+	cp -r $(CLONE_DIR)/coralX-scenarios.js stablecoinDeployResults/coralX-scenarios.js
+	cp -r $(CLONE_DIR)/privateKey stablecoinDeployResults/privateKey
 	echo "addresses_${COL_NAME}.json copied to stablecoinDeployResults."
 
 # Target to switch price feed
@@ -123,6 +124,21 @@ stablecoin-switch-price-feed: stablecoin-compile
 
 	cd ${CLONE_DIR} && coralX scenario --run ${SWITCH_PRICE_FEED_SCENARIO}
 	echo "Price feed switched."\
+
+# Target to whitelist address to collateral token adapter or FMM
+stablecoin-whitelist: stablecoin-compile
+	echo "Copying whitelisting.json..."
+	cp configs/stablecoin/whitelisting/whitelisting.json $(CLONE_DIR)/whitelisting.json
+	echo "Finished copying whitelisting.json."
+
+	echo "Copying coralX-scenarios.js..."
+	cp configs/stablecoin/coralX-scenarios.js $(CLONE_DIR)/coralX-scenarios.js
+	echo "Finished copying coralX-scenarios.js."
+
+	cd ${CLONE_DIR} && coralX scenario --run ${WHITELIST_SCENARIO}
+	echo "Whitelisted with ${WHITELIST_SCENARIO}}."
+
+	cp -r $(CLONE_DIR)/coralX-scenarios.js stablecoinDeployResults/coralX-scenarios-whitelisting.js
 
 # Default target
 all: stablecoin-initial-deploy

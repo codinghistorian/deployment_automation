@@ -30,6 +30,12 @@ module.exports = {
   switchPriceFeedLocal: [
     ['execute', '--path', 'scripts/migrations/priceFeed', '--network', 'development'],
   ],
+  whitelistCollateralTokenAdapterLocal: [
+    ['execute', '--path', 'scripts/migrations/whitelist/collateral-adapter', '--network', 'development']
+  ],
+  whitelistFMMLocal: [
+    ['execute', '--path', 'scripts/migrations/whitelist/FMM', '--network', 'development']
+  ],
   deployTokensLocal: [
     ['execute', '--path', 'scripts/migrations/collateral-tokens', '--network', 'development']
   ],
