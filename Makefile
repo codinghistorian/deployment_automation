@@ -145,7 +145,7 @@ stablecoin-whitelist: stablecoin-compile
 # Target to add roles
 stablecoin-add-roles: stablecoin-compile
 	echo "Copying add-roles.json..."
-	cp configs/stablecoin/roles/addRoles.json $(CLONE_DIR)/add-roles.json
+	cp configs/stablecoin/roles/addRoles.json $(CLONE_DIR)/addRoles.json
 	echo "Finished copying add-roles.json."
 
 	echo "Copying coralX-scenarios.js..."
