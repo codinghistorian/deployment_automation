@@ -1,83 +1,86 @@
 # Fathom Deployment Script
 
-0.This project uses Makefile to orchestrate deployment and scripts needed for configs and maintenance of the protocol.
-1.Makefile git clones, installs dependencies, compiles, copy config files from this project to cloned project, runs coralX scenarios
-2.Initial collateral addition automatically uses simplePriceFeed as priceFeed. Please switch price feed once price aggregator for a collateral is ready.
+0.This project uses Makefile to orchestrate deployment and scripts needed for configs and maintenance of the protocol.<br>
+1.Makefile git clones, installs dependencies, compiles, copy config files from this project to cloned project, runs coralX scenarios<br>
+2.Initial collateral addition automatically uses simplePriceFeed as priceFeed. Please switch price feed once price aggregator for a collateral is ready.<br>
 
 ## Stablecoin
 
-Before running any of the scenario, please make sure that privateKey file is created with PK w/o 0x prefix in it in configs/stablecoin dir.
-coralX-config.js is used for network configs.
-coralX-scenario.js is used for scenario configs.
-Please ensure network set up and scenario set up according to the new network are done properly before moving on to other scenario specific config files.
+Before running any of the scenario, please make sure that privateKey file is created with PK w/o 0x prefix in it in configs/stablecoin dir.<br>
+coralX-config.js is used for network configs.<br>
+coralX-scenario.js is used for scenario configs.<br>
+Please ensure network set up and scenario set up according to the new network are done properly before moving on to other scenario specific config files.<br>
 
-configs
-├── stablecoin
-│   ├── add-collateral
-│   │   ├── add-collateral.json
-│   │   └── newCollateralSetup.json
-│   ├── coralX-config.js
-│   ├── coralX-scenarios.js
-│   ├── privateKey
-│   ├── deployment
-│   │   ├── externalAddresses.json
-│   │   └── initialCollateralSetUp.json
-│   ├── roles
-│   │   └── addRoles.json
-│   ├── whitelisting
-│   │   └── whitelisting.json
-│   ├── privateKey
-│   └── switch-price-feed
-│       └── setFathomPriceOracle.json
+configs<br>
+├── stablecoin<br>
+│   ├── add-collateral<br>
+│   │   ├── add-collateral.json<br>
+│   │   └── newCollateralSetup.json<br>
+│   ├── coralX-config.js<br>
+│   ├── coralX-scenarios.js<br>
+│   ├── privateKey<br>
+│   ├── deployment<br>
+│   │   ├── externalAddresses.json<br>
+│   │   └── initialCollateralSetUp.json<br>
+│   ├── roles<br>
+│   │   └── addRoles.json<br>
+│   ├── whitelisting<br>
+│   │   └── whitelisting.json<br>
+│   ├── privateKey<br>
+│   └── switch-price-feed<br>
+│       └── setFathomPriceOracle.json<br>
 
 ### coralX-scenario.js
 Three scenarios; deployment, addCollateral, switchPriceFeed have examples in the file. Please add more scenarios for your needs.
 
+### privateKey
+privateKey : a file that contains PK of EOA that will execute scenarios. Please create it in the configs/stablecoin/ dir <br>
+
 ### Stablecoin Config files
 
 #### add-collateral
-add-collateral.json : Token symbol and addresses used for add-collateral scenario is set in this file.
-newCollateralSetup.json : New collateral's CDP config is done in this file.
+add-collateral.json : Token symbol and addresses used for add-collateral scenario is set in this file.<br>
+newCollateralSetup.json : New collateral's CDP config is done in this file.<br>
 
 #### deployment
-externalAddresses.json : WNATIVE address for initial deployment of protocol to set NATIVE coin as the first collateral
-initialCollateralSetUp.json : initial collateral's CDP config is done in this file.
+externalAddresses.json : WNATIVE address for initial deployment of protocol to set NATIVE coin as the first collateral<br>
+initialCollateralSetUp.json : initial collateral's CDP config is done in this file.<br>
 
 #### switch-price-feed
-setFathomPriceOracle.json : Token symbol and addresses used for price feed swtich from simplePriceFeed to CentralizedOraclePriceFeed is set in this file.
+setFathomPriceOracle.json : Token symbol and addresses used for price feed swtich from simplePriceFeed to CentralizedOraclePriceFeed is set in this file.<br>
 
 #### whitelisting
-whitelisting.json : CollateralTokenAdapter and addresses to be whitelisted, FlashMintModule and addresses to be whitelisted, LiquidationEngine and addresses to be whitelisted
+whitelisting.json : CollateralTokenAdapter and addresses to be whitelisted, FlashMintModule and addresses to be whitelisted, LiquidationEngine and addresses to be whitelisted<br>
 
 #### add-roles
-addRoles.json : AccessControlConfig, Address_To_Add_Role addresses and roles bool. If any role's value is true, role will be added.
+addRoles.json : AccessControlConfig, Address_To_Add_Role addresses and roles bool. If any role's value is true, role will be added.<br>
 
 ## Makefile for stablecoin
 ### Variables
 
 #### Cloning repo
-REPO_URL : github repo url to clone stablecoin project from
-BRANCH : github repo branch to clone stablecoin project from
+REPO_URL : github repo url to clone stablecoin project from<br>
+BRANCH : github repo branch to clone stablecoin project from<br>
 
 #### Deployment
-INIT_DEPLOY_SCENARIO : deployment scenario set in coralX-scenarios.js. Please adjust according to your needs.
+INIT_DEPLOY_SCENARIO : deployment scenario set in coralX-scenarios.js. Please adjust according to your needs.<br>
 
 #### Add-collateral
-ADD_COL_SCENARIO : add-collateral scenario set in coralX-scenarios.js. Please adjust according to your needs.
+ADD_COL_SCENARIO : add-collateral scenario set in coralX-scenarios.js. Please adjust according to your needs.<br>
 
 #### New collateral name for add-addCollateral
-COL_NAME : Token symbol for add-collateral. Please make it sync with col name in configs/stablecoin/add-collateral/newCollateralSetup.json 's token symbol.
+COL_NAME : Token symbol for add-collateral. Please make it sync with col name in configs/stablecoin/add-collateral/newCollateralSetup.json 's token symbol.<br>
 
 #### whitelisting
-WHITELIST_SCENARIO : coralX scenario that will be used for whitelisting
+WHITELIST_SCENARIO : coralX scenario that will be used for whitelisting<br>
 
 #### add-roles
-ADD_ROLES_SCENARIO : coralX scenario that will be used for add-roles
+ADD_ROLES_SCENARIO : coralX scenario that will be used for add-roles<br>
 
 ### Stablecoin Makefile Targets
-There is each target(command) to get run for all stablecoin three scenarios. 
-When running target, please follow below format
-$make ${targetName}
+There is each target(command) to get run for all stablecoin three scenarios. <br>
+When running target, please follow below format<br>
+$make ${targetName}<br>
 
 #### Deployment
 make stablecoin-initial-deploy
@@ -92,6 +95,6 @@ make stablecoin-switch-price-feed
 make stablecoin-whitelist
 
 ## Results targets
-make stablecoin-add-roles
-
+make stablecoin-add-roles<br>
+<br>
 To check files generated from deployment scenario and add-collateral scenario, please check stablecoinDeployResults dir in root.
