@@ -36,6 +36,9 @@ module.exports = {
   whitelistFMMLocal: [
     ['execute', '--path', 'scripts/migrations/whitelist/FMM', '--network', 'development']
   ],
+  addRolesLocal: [
+    ['execute', '--path', 'scripts/roles/addRoles', '--network', 'development']
+  ],
   deployTokensLocal: [
     ['execute', '--path', 'scripts/migrations/collateral-tokens', '--network', 'development']
   ],

@@ -22,6 +22,10 @@ configs
 │   ├── deployment
 │   │   ├── externalAddresses.json
 │   │   └── initialCollateralSetUp.json
+│   ├── roles
+│   │   └── addRoles.json
+│   ├── whitelisting
+│   │   └── whitelisting.json
 │   ├── privateKey
 │   └── switch-price-feed
 │       └── setFathomPriceOracle.json
@@ -45,6 +49,9 @@ setFathomPriceOracle.json : Token symbol and addresses used for price feed swtic
 #### whitelisting
 whitelisting.json : CollateralTokenAdapter and addresses to be whitelisted, FlashMintModule and addresses to be whitelisted, LiquidationEngine and addresses to be whitelisted
 
+#### add-roles
+addRoles.json : AccessControlConfig, Address_To_Add_Role addresses and roles bool. If any role's value is true, role will be added.
+
 ## Makefile for stablecoin
 ### Variables
 
@@ -64,6 +71,9 @@ COL_NAME : Token symbol for add-collateral. Please make it sync with col name in
 #### whitelisting
 WHITELIST_SCENARIO : coralX scenario that will be used for whitelisting
 
+#### add-roles
+ADD_ROLES_SCENARIO : coralX scenario that will be used for add-roles
+
 ### Stablecoin Makefile Targets
 There is each target(command) to get run for all stablecoin three scenarios. 
 When running target, please follow below format
@@ -82,5 +92,6 @@ make stablecoin-switch-price-feed
 make stablecoin-whitelist
 
 ## Results targets
+make stablecoin-add-roles
 
 To check files generated from deployment scenario and add-collateral scenario, please check stablecoinDeployResults dir in root.

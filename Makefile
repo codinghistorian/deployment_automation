@@ -22,6 +22,8 @@ SWITCH_PRICE_FEED_SCENARIO = switchPriceFeedLocal
 
 WHITELIST_SCENARIO = whitelistCollateralTokenAdapterLocal
 
+ADD_ROLES_SCENARIO = addRolesLocal
+
 # Target to clone the repository
 clone-stablecoin:
 	echo "Cloning stablecoin repository..."
@@ -139,6 +141,21 @@ stablecoin-whitelist: stablecoin-compile
 	echo "Whitelisted with ${WHITELIST_SCENARIO}}."
 
 	cp -r $(CLONE_DIR)/coralX-scenarios.js stablecoinDeployResults/coralX-scenarios-whitelisting.js
+
+# Target to add roles
+stablecoin-add-roles: stablecoin-compile
+	echo "Copying add-roles.json..."
+	cp configs/stablecoin/roles/addRoles.json $(CLONE_DIR)/add-roles.json
+	echo "Finished copying add-roles.json."
+
+	echo "Copying coralX-scenarios.js..."
+	cp configs/stablecoin/coralX-scenarios.js $(CLONE_DIR)/coralX-scenarios.js
+	echo "Finished copying coralX-scenarios.js."
+
+	cd ${CLONE_DIR} && coralX scenario --run $(ADD_ROLES_SCENARIO)
+	echo "Roles added."
+
+	cp -r $(CLONE_DIR)/coralX-scenarios.js stablecoinDeployResults/coralX-scenarios-add-roles.js
 
 # Default target
 all: stablecoin-initial-deploy
