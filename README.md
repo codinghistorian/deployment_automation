@@ -39,6 +39,9 @@ removeFromWL.json : CollateralTokenAdapter and addresses to be removed from WL, 
 #### add-roles
 addRoles.json : AccessControlConfig, Address_To_Add_Role addresses and roles bool. If any role's value is true, role will be added.<br>
 
+#### revoke-roles
+revokeRoles.json : AccessControlConfig, Address_To_Revoke_Role addresses and roles bool. If any role's value is true, role will be revoked.<br>
+
 ## Makefile for stablecoin
 ### Variables
 
@@ -64,6 +67,9 @@ REMOVE_WL_SCENARIO: : coralX scenario that will be used for remove from WL<br>
 #### add-roles
 ADD_ROLES_SCENARIO : coralX scenario that will be used for add-roles<br>
 
+#### revoke-roles
+REVOKE_ROLES_SCENARIO : coralX scenario that will be used for revoke-roles<br>
+
 ### Stablecoin Makefile Targets
 There is each target(command) to get run for all stablecoin three scenarios. <br>
 When running target, please follow below format<br>
@@ -84,7 +90,12 @@ make stablecoin-whitelist
 #### remove-from-whitelist
 make stablecoin-removeFromWL
 
-## Results targets
+#### add-roles
 make stablecoin-add-roles<br>
+
+#### revoke-roles
+make stablecoin-revoke-roles<br>
+
+### Check results
 <br>
 To check files generated from deployment scenario and add-collateral scenario, please check stablecoinDeployResults dir in root.

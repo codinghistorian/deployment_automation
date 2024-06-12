@@ -26,6 +26,8 @@ REMOVE_WL_SCENARIO = removeFromWLCollateralTokenAdapterLocal
 
 ADD_ROLES_SCENARIO = addRolesLocal
 
+REVOKE_ROLES_SCENARIO = revokeRolesLocal
+
 # Target to clone the repository
 clone-stablecoin:
 	echo "Cloning stablecoin repository..."
@@ -174,6 +176,22 @@ stablecoin-add-roles: stablecoin-compile
 	echo "Roles added."
 
 	cp -r $(CLONE_DIR)/coralX-scenarios.js stablecoinDeployResults/coralX-scenarios-add-roles.js
+
+# Target to revoke roles
+stablecoin-revoke-roles: stablecoin-compile
+	echo "Copying revokeRoles.json..."
+	cp configs/stablecoin/roles/revokeRoles.json $(CLONE_DIR)/revokeRoles.json
+	echo "Finished copying revokeRoles.json."
+
+	echo "Copying coralX-scenarios.js..."
+	cp configs/stablecoin/coralX-scenarios.js $(CLONE_DIR)/coralX-scenarios.js
+	echo "Finished copying coralX-scenarios.js."
+
+	cd ${CLONE_DIR} && coralX scenario --run $(REVOKE_ROLES_SCENARIO)
+	echo "Roles revoked."
+
+	cp -r $(CLONE_DIR)/coralX-scenarios.js stablecoinDeployResults/coralX-scenarios-revoke-roles.js
+
 
 # Default target
 all: stablecoin-initial-deploy

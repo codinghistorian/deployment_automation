@@ -42,6 +42,9 @@ module.exports = {
   addRolesLocal: [
     ['execute', '--path', 'scripts/roles/addRoles', '--network', 'development']
   ],
+  revokeRolesLocal: [
+    ['execute', '--path', 'scripts/roles/revokeRoles', '--network', 'development']
+  ],
   deployTokensLocal: [
     ['execute', '--path', 'scripts/migrations/collateral-tokens', '--network', 'development']
   ],
