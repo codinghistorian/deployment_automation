@@ -31,10 +31,10 @@ module.exports = {
     ['execute', '--path', 'scripts/migrations/priceFeed', '--network', 'development'],
   ],
   whitelistCollateralTokenAdapterLocal: [
-    ['execute', '--path', 'scripts/migrations/whitelist/collateral-adapter', '--network', 'development']
+    ['execute', '--path', 'scripts/whitelist/collateral-adapter/1_whitelisting.js', '--network', 'development']
   ],
   whitelistFMMLocal: [
-    ['execute', '--path', 'scripts/migrations/whitelist/FMM', '--network', 'development']
+    ['execute', '--path', 'scripts/whitelist/FMM/1_fmm-whitelisting.js', '--network', 'development']
   ],
   addRolesLocal: [
     ['execute', '--path', 'scripts/roles/addRoles', '--network', 'development']
