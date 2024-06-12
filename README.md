@@ -42,6 +42,9 @@ addRoles.json : AccessControlConfig, Address_To_Add_Role addresses and roles boo
 #### revoke-roles
 revokeRoles.json : AccessControlConfig, Address_To_Revoke_Role addresses and roles bool. If any role's value is true, role will be revoked.<br>
 
+#### transfer-protocol-ownership
+transferProtocolOwnership.json : AccessControlConfig, Address_To_Give_Ownership, Address_To_Renounce_Ownership addresses <br>
+
 ## Makefile for stablecoin
 ### Variables
 
@@ -70,6 +73,9 @@ ADD_ROLES_SCENARIO : coralX scenario that will be used for add-roles<br>
 #### revoke-roles
 REVOKE_ROLES_SCENARIO : coralX scenario that will be used for revoke-roles<br>
 
+#### transfer-protocol-ownership
+TRANSFER_PROTOCOL_OWNERSHIP_SCENARIO : coralX scenario that will be used for transfer-protocol-ownership <br>
+
 ### Stablecoin Makefile Targets
 There is each target(command) to get run for all stablecoin three scenarios. <br>
 When running target, please follow below format<br>
@@ -95,6 +101,9 @@ make stablecoin-add-roles<br>
 
 #### revoke-roles
 make stablecoin-revoke-roles<br>
+
+#### transfer-protocol-ownership
+make stablecoin-transfer-protocol-ownership
 
 ### Check results
 <br>

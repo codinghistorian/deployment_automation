@@ -28,6 +28,8 @@ ADD_ROLES_SCENARIO = addRolesLocal
 
 REVOKE_ROLES_SCENARIO = revokeRolesLocal
 
+TRANSFER_PROTOCOL_OWNERSHIP_SCENARIO = transferProtocolOwnershipLocal
+
 # Target to clone the repository
 clone-stablecoin:
 	echo "Cloning stablecoin repository..."
@@ -192,6 +194,20 @@ stablecoin-revoke-roles: stablecoin-compile
 
 	cp -r $(CLONE_DIR)/coralX-scenarios.js stablecoinDeployResults/coralX-scenarios-revoke-roles.js
 
+# Target to transfer protocol ownership
+stablecoin-transfer-protocol-ownership: stablecoin-compile
+	echo "Copying transferProtocolOwnership.json..."
+	cp configs/stablecoin/ownership/transferProtocolOwnership.json $(CLONE_DIR)/transferProtocolOwnership.json
+	echo "Finished copying transferProtocolOwnership.json."
+
+	echo "Copying coralX-scenarios.js..."
+	cp configs/stablecoin/coralX-scenarios.js $(CLONE_DIR)/coralX-scenarios.js
+	echo "Finished copying coralX-scenarios.js."
+
+	cd ${CLONE_DIR} && coralX scenario --run $(TRANSFER_PROTOCOL_OWNERSHIP_SCENARIO)
+	echo "Protocol ownership transferred."
+
+	cp -r $(CLONE_DIR)/coralX-scenarios.js stablecoinDeployResults/coralX-scenarios-transfer-protocol-ownership.js
 
 # Default target
 all: stablecoin-initial-deploy
