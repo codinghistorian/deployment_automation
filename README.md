@@ -11,25 +11,6 @@ coralX-config.js is used for network configs.<br>
 coralX-scenario.js is used for scenario configs.<br>
 Please ensure network set up and scenario set up according to the new network are done properly before moving on to other scenario specific config files.<br>
 
-configs<br>
-├── stablecoin<br>
-│   ├── add-collateral<br>
-│   │   ├── add-collateral.json<br>
-│   │   └── newCollateralSetup.json<br>
-│   ├── coralX-config.js<br>
-│   ├── coralX-scenarios.js<br>
-│   ├── privateKey<br>
-│   ├── deployment<br>
-│   │   ├── externalAddresses.json<br>
-│   │   └── initialCollateralSetUp.json<br>
-│   ├── roles<br>
-│   │   └── addRoles.json<br>
-│   ├── whitelisting<br>
-│   │   └── whitelisting.json<br>
-│   ├── privateKey<br>
-│   └── switch-price-feed<br>
-│       └── setFathomPriceOracle.json<br>
-
 ### coralX-scenario.js
 Three scenarios; deployment, addCollateral, switchPriceFeed have examples in the file. Please add more scenarios for your needs.
 
@@ -51,6 +32,9 @@ setFathomPriceOracle.json : Token symbol and addresses used for price feed swtic
 
 #### whitelisting
 whitelisting.json : CollateralTokenAdapter and addresses to be whitelisted, FlashMintModule and addresses to be whitelisted, LiquidationEngine and addresses to be whitelisted<br>
+
+#### remove-from-whitelist
+removeFromWL.json : CollateralTokenAdapter and addresses to be removed from WL, FlashMintModule and addresses to be removed from WL, LiquidationEngine and addresses to be removed from WL<br>
 
 #### add-roles
 addRoles.json : AccessControlConfig, Address_To_Add_Role addresses and roles bool. If any role's value is true, role will be added.<br>
@@ -74,6 +58,9 @@ COL_NAME : Token symbol for add-collateral. Please make it sync with col name in
 #### whitelisting
 WHITELIST_SCENARIO : coralX scenario that will be used for whitelisting<br>
 
+#### remove-from-whitelist
+REMOVE_WL_SCENARIO: : coralX scenario that will be used for remove from WL<br>
+
 #### add-roles
 ADD_ROLES_SCENARIO : coralX scenario that will be used for add-roles<br>
 
@@ -93,6 +80,9 @@ make stablecoin-switch-price-feed
 
 #### Whitelisting
 make stablecoin-whitelist
+
+#### remove-from-whitelist
+make stablecoin-removeFromWL
 
 ## Results targets
 make stablecoin-add-roles<br>
