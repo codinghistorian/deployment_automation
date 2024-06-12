@@ -33,6 +33,9 @@ module.exports = {
   whitelistCollateralTokenAdapterLocal: [
     ['execute', '--path', 'scripts/whitelist/collateral-adapter/1_whitelisting.js', '--network', 'development']
   ],
+  removeFromWLCollateralTokenAdapterLocal: [
+    ['execute', '--path', 'scripts/whitelist/collateral-adapter/2_removeFromWL.js', '--network', 'development']
+  ],
   whitelistFMMLocal: [
     ['execute', '--path', 'scripts/whitelist/FMM/1_fmm-whitelisting.js', '--network', 'development']
   ],

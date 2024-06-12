@@ -22,6 +22,8 @@ SWITCH_PRICE_FEED_SCENARIO = switchPriceFeedLocal
 
 WHITELIST_SCENARIO = whitelistCollateralTokenAdapterLocal
 
+REMOVE_WL_SCENARIO = removeFromWLCollateralTokenAdapterLocal
+
 ADD_ROLES_SCENARIO = addRolesLocal
 
 # Target to clone the repository
@@ -127,7 +129,7 @@ stablecoin-switch-price-feed: stablecoin-compile
 	cd ${CLONE_DIR} && coralX scenario --run ${SWITCH_PRICE_FEED_SCENARIO}
 	echo "Price feed switched."\
 
-# Target to whitelist address to collateral token adapter or FMM
+# Target to whitelist address to collateral token adapter or FMM or LiquidationEngine
 stablecoin-whitelist: stablecoin-compile
 	echo "Copying whitelisting.json..."
 	cp configs/stablecoin/whitelisting/whitelisting.json $(CLONE_DIR)/whitelisting.json
@@ -141,6 +143,22 @@ stablecoin-whitelist: stablecoin-compile
 	echo "Whitelisted with ${WHITELIST_SCENARIO}}."
 
 	cp -r $(CLONE_DIR)/coralX-scenarios.js stablecoinDeployResults/coralX-scenarios-whitelisting.js
+
+# Target to remove from whitelist address to collateral token adapter or FMM or LiquidationEngine
+stablecoin-removeFromWL: stablecoin-compile
+	echo "Copying whitelisting.json..."
+	cp configs/stablecoin/whitelisting/removeFromWL.json $(CLONE_DIR)/removeFromWL.json
+	echo "Finished copying removeFromWL.json."
+
+	echo "Copying coralX-scenarios.js..."
+	cp configs/stablecoin/coralX-scenarios.js $(CLONE_DIR)/coralX-scenarios.js
+	echo "Finished copying coralX-scenarios.js."
+
+	cd ${CLONE_DIR} && coralX scenario --run ${REMOVE_WL_SCENARIO}
+	echo "remove from WL with ${REMOVE_WL_SCENARIO}}."
+
+	cp -r $(CLONE_DIR)/coralX-scenarios.js stablecoinDeployResults/coralX-scenarios-whitelisting.js
+
 
 # Target to add roles
 stablecoin-add-roles: stablecoin-compile
