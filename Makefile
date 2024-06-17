@@ -32,6 +32,8 @@ TRANSFER_PROTOCOL_OWNERSHIP_SCENARIO = transferProtocolOwnershipLocal
 
 TRANSFER_PROXY_ADMIN_OWNERSHIP_SCENARIO = transferProxyAdminOwnershipLocal
 
+FEE_COLLECTION_SCENARIO = feeCollectionLocal
+
 # Target to clone the repository
 clone-stablecoin:
 	echo "Cloning stablecoin repository..."
@@ -225,6 +227,21 @@ stablecoin-transfer-proxy-admin-ownership: stablecoin-compile
 	echo "Proxy admin ownership transferred."
 
 	cp -r $(CLONE_DIR)/coralX-scenarios.js stablecoinDeployResults/coralX-scenarios-transfer-proxy-admin-ownership.js
+
+# Target to collect fees
+stablecoin-fee-collection: stablecoin-compile
+	echo "Copying feeCollection.json..."
+	cp configs/stablecoin/fee-collection/feeCollection.json $(CLONE_DIR)/feeCollection.json
+	echo "Finished copying feeCollection.json."
+
+	echo "Copying coralX-scenarios.js..."
+	cp configs/stablecoin/coralX-scenarios.js $(CLONE_DIR)/coralX-scenarios.js
+	echo "Finished copying coralX-scenarios.js."
+
+	cd ${CLONE_DIR} && coralX scenario --run $(FEE_COLLECTION_SCENARIO)
+	echo "Fees collected."
+
+	cp -r $(CLONE_DIR)/coralX-scenarios.js stablecoinDeployResults/coralX-scenarios-fee-collection.js
 
 # Default target
 all: stablecoin-initial-deploy

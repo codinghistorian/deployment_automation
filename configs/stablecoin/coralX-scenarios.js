@@ -51,6 +51,9 @@ module.exports = {
   transferProxyAdminOwnershipLocal: [
     ['execute', '--path', 'scripts/ownership/proxy-admin-ownership-transfer', '--network', 'development']
   ],
+  feeCollectionLocal: [
+    ['execute', '--path', 'scripts/migrations/fee-collection', '--network', 'development']
+  ],
   deployTokensLocal: [
     ['execute', '--path', 'scripts/migrations/collateral-tokens', '--network', 'development']
   ],
